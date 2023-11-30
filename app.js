@@ -11,33 +11,16 @@ const PORT    = process.env.PORT || 3000
 
 //Settings for node.js app
 app.use(express.static(path.join(__dirname, 'public')))
-app.set('views', path.join(__dirname, 'views'))
-app.set('view engine', 'ejs')
-
+// app.set('views', path.join(__dirname, 'views'))
+app.set('view engine', 'html')
 
 
 //Requests
-app.get('/', (req, res)=>{
-	res.render('index.ejs')
+app.get('/m', (req, res)=>{
+	res.sendFile(path.join(__dirname, 'public/m.html'))
 })
 
 
-
-//Socket.io functions
-io.on('connection', (socket) => {
-
-	console.log('a user connected ' + socket.id)
-
-	socket.on('disconnect', ()=>{
-		console.log('user diconnected ' + socket.id)
-	})
-
-	socket.on('send', (e)=>{
-		console.log(`User with id: ${e} sended info`)
-		io.emit('response', e)
-	})
-
-})
 
 
 
